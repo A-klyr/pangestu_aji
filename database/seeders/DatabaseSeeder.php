@@ -16,13 +16,15 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        // Buat akun admin
-        User::create([
-            'name' => 'Admin',
-            'email' => env('ADMIN_EMAIL', 'admin@example.com'),
-            'password' => Hash::make(env('ADMIN_PASSWORD', '123')),
-            'role' => 'admin',
-        ]);
+        // Buat atau update akun admin
+        User::updateOrCreate(
+            ['email' => env('ADMIN_EMAIL', 'admin@example.com')],
+            [
+                'name' => 'Admin',
+                'password' => Hash::make(env('ADMIN_PASSWORD', '123')),
+                'role' => 'admin',
+            ]
+        );
 
         // Buat akun user biasa
         User::create([
