@@ -38,10 +38,13 @@ WORKDIR /var/www/html
 
 # Copy composer files and install PHP dependencies
 COPY composer.json composer.lock ./
-RUN composer install --no-dev --optimize-autoloader
+RUN composer install --no-dev --optimize-autoloader --no-scripts
 
 # Copy the rest of the application
 COPY . .
+
+# Run composer scripts now that 'artisan' is available
+RUN composer run-script post-autoload-dump
 
 # Copy built assets from Stage 1
 COPY --from=asset-builder /app/public/build ./public/build
