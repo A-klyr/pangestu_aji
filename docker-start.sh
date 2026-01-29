@@ -1,12 +1,9 @@
 #!/bin/sh
 
-# Create folder for persistent database if it doesn't exist
-mkdir -p /var/www/html/storage/database
-
-# Ensure the SQLite database file exists in the persistent folder
-if [ ! -f /var/www/html/storage/database/database.sqlite ]; then
-    touch /var/www/html/storage/database/database.sqlite
-    chown -R www-data:www-data /var/www/html/storage/database
+# Ensure the SQLite database file exists
+if [ ! -f /var/www/html/database/database.sqlite ]; then
+    touch /var/www/html/database/database.sqlite
+    chown www-data:www-data /var/www/html/database/database.sqlite
 fi
 
 # Run migrations and seed the database
